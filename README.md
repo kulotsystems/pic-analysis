@@ -10,7 +10,7 @@ You can modify the pictures inside `f` (female category) and `m` (male category)
 
 <br>
 
-#Usage
+# Usage
 <ul>
     <li>Open <code>female.html</code> or <code>male.html</code> on your web browser, during respective categories.</li>
     <li>Click on a number to show a picture.</li>
