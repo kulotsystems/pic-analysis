@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="assets/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/magnific-popup.css">
+    <link rel="stylesheet" href="assets/popup.css">
+    <title>MALE</title>
+</head>
+<body style="overflow: hidden; margin-left: -60px">
+    <audio id="audio" src="assets/c.mp3" controls style="display: none"></audio>
+    <table id="tbl"><tr><td style="padding-bottom: 90px;">
+        <div align="center" style="margin-right: -60px">
+            <h2>MR&MS. UNITED NATIONS 2019</h2>
+            <h1>PICTURE ANALYSIS</h1>
+            <h3>MALE CATEGORY</h3>
+        </div>
+        <div class="links" align="center">
+            <table id="image-popups">
+                <tr>
+                    <td><a href="m/01.png" data-effect="mfp-3d-unfold">&nbsp;1</a></td>
+                    <td><a href="m/02.png" data-effect="mfp-3d-unfold">&nbsp;2</a></td>
+                    <td><a href="m/03.png" data-effect="mfp-3d-unfold">&nbsp;3</a></td>
+                    <td><a href="m/04.png" data-effect="mfp-3d-unfold">&nbsp;4</a></td>
+                    <td><a href="m/05.png" data-effect="mfp-3d-unfold">&nbsp;5</a></td>
+                </tr>
+                <tr>
+                    <td><a href="m/06.png" data-effect="mfp-3d-unfold">&nbsp;6</a></td>
+                    <td><a href="m/07.png" data-effect="mfp-3d-unfold">&nbsp;7</a></td>
+                    <td><a href="m/08.png" data-effect="mfp-3d-unfold">&nbsp;8</a></td>
+                    <td><a href="m/09.png" data-effect="mfp-3d-unfold">&nbsp;9</a></td>
+                    <td><a href="m/10.png" data-effect="mfp-3d-unfold">10</a></td>
+                </tr>
+                <tr>
+                    <td><a href="m/11.png" data-effect="mfp-3d-unfold">11</a></td>
+                    <td><a href="m/12.png" data-effect="mfp-3d-unfold">12</a></td>
+                    <td><a href="m/13.png" data-effect="mfp-3d-unfold">13</a></td>
+                    <td><a href="m/14.png" data-effect="mfp-3d-unfold">14</a></td>
+                    <td><a href="m/15.png" data-effect="mfp-3d-unfold">15</a></td>
+                </tr>
+            </table>
+        </div>
+    </td></tr></table>
+    <div id="divTimer" style="position: fixed; z-index: 9999999; width: 120px; height: 120px; border-radius: 50%; opacity: 0.95; padding: 2px; visibility: hidden; transition: 0.5s all" class="bg-white">
+        <div style="width: 100%; height: 100%; border: 3px solid red; border-radius: 50%;">
+            <table style="width: 100%; height: 100%"><tr><td align="center" style="font-size: 70px; transition: 0.3s all; font-weight: bold" id="divSeconds">
+            </td></tr></table>
+        </div>
+    </div>
+    <script src="assets/jquery-3.3.1.js"></script>
+    <script src="assets/jquery.magnific-popup.min.js"></script>
+    <script src="assets/popup.js"></script>
+    <script>
+        $(function() {
+            var maxSeconds = 60;
+            var currentSecond = -1;
+            var isTimerShown = false;
+            var isTimerRunning = false;
+            var tmr;
+            var arrVolume = [0, 0, 0, 0];
+
+            var divTimer = $('#divTimer');
+            var divSeconds = $('#divSeconds');
+            var audio = $('#audio');
+            divSeconds.html(maxSeconds.toString());
+
+            function positionElements() {
+                var tbl = $('#tbl');
+                tbl.css({
+                    'height':window.innerHeight.toString() + 'px',
+                    'width':window.innerWidth.toString() + 'px'
+                });
+                $('body').css({'height':window.innerHeight.toString() + 'px'});
+
+                var windowWidth = window.innerWidth;
+
+                var divTimerWidth = parseInt(divTimer.css('width'));
+                var divTimerLeft = (windowWidth / 2) - (divTimerWidth / 2);
+                divTimer.css({
+                    'left' : divTimerLeft.toString() + 'px',
+                    'top' : '0'
+                });
+            }
+            positionElements();
+
+            window.onresize = function() {
+              positionElements();
+            };
+
+            $('a').on('click', function() {
+               $(this).html("&nbsp;");
+            });
+
+            function playSilentAudio() {
+                audio[0].play();
+                audio[0].volume = 0;
+                arrVolume = [0, 0, 0, 0];
+            }
+            function playLoudAudio() {
+                audio[0].currentTime = 0;
+                audio[0].play();
+                arrVolume = arrVolume = [0.7, 0.8, 0.9, 1];
+            }
+            function showTimer() {
+                positionElements();
+                if(currentSecond == -1) {
+                    currentSecond = maxSeconds;
+                }
+                divSeconds.html(currentSecond.toString());
+                var divTimerHeight = parseInt(divTimer.css('height'));
+                divTimer.css({
+                    'visibility' : 'hidden',
+                    'top' : (0 - divTimerHeight - 15).toString() + 'px'
+                });
+
+                setTimeout(function() {
+                    divTimer.css({
+                        'visibility' : 'visible',
+                        'top' : '0'
+                    });
+                    isTimerShown = true;
+                }, 100);
+                divSeconds.css({'color':'red'});
+                playSilentAudio();
+            }
+            function hideTimer() {
+                var divTimerHeight = parseInt(divTimer.css('height'));
+                divTimer.css({
+                    'top' : (0 - divTimerHeight - 15).toString() + 'px'
+                });
+
+                setTimeout(function() {
+                    divTimer.css({
+                        'visibility' : 'hidden'
+                    });
+                    isTimerShown = false;
+                }, 1);
+            }
+            function resetTimer() {
+                currentSecond = maxSeconds;
+            }
+            function startTimer() {
+                isTimerRunning = true;
+                var tmrFont;
+                tmr = setInterval(function() {
+                    currentSecond -= 1;
+                    divSeconds.html(currentSecond.toString());
+                    divSeconds.css({'color':'black'});
+
+                    clearInterval(tmrFont);
+
+                    if(currentSecond <= 4) {
+                        var fontSize = 70;
+                        divSeconds[0].style.fontSize = fontSize.toString() + 'px';
+                        setTimeout(function () {
+                            tmrFont = setInterval(function () {
+                                fontSize += 1;
+                                divSeconds[0].style.fontSize = fontSize.toString() + 'px';
+                                if (fontSize >= 75) {
+                                    clearInterval(tmrFont);
+                                }
+                            }, 10);
+                        }, 300);
+                    }
+
+                    // =============
+
+                    // =============
+
+
+                    if(currentSecond == 3) {
+                        playLoudAudio();
+                    }
+                    if(currentSecond <= 0) {
+                        stopTimer();
+                        resetTimer();
+                        setTimeout(function() {
+                            $('.mfp-image-holder').click();
+                        }, 1000);
+                    }
+                }, 1000);
+            }
+            function stopTimer() {
+                isTimerRunning = false;
+                clearInterval(tmr);
+                divSeconds.css({'color':'red'});
+            }
+            $('body').on('keyup', function(e) {
+                if(e.keyCode == 13) {
+                    // ENTER KEY
+                    if(!isTimerShown)
+                        showTimer();
+                    else
+                        hideTimer();
+                }
+                else if(e.keyCode == 32) {
+                    // SPACE
+                    if(isTimerShown) {
+                        if (!isTimerRunning)
+                            startTimer();
+                        else
+                            stopTimer();
+                    }
+                }
+                else if(e.keyCode == 27) {
+                    if(isTimerShown) {
+                        stopTimer();
+                        resetTimer();
+                        playSilentAudio();
+                        hideTimer();
+                    }
+                }
+            });
+            $('body').delegate('.mfp-image-holder', 'click', function() {
+                stopTimer();
+                resetTimer();
+                playSilentAudio();
+                setTimeout(function() {
+                    hideTimer();
+                }, 1000);
+            });
+            audio[0].ontimeupdate = function() {
+                if(audio[0].currentTime >= 0 && audio[0].currentTime <= 4) {
+                    audio[0].volume = arrVolume[parseInt(audio[0].currentTime)];
+                }
+            };
+
+        });
+    </script>
+</body>
+</html>
